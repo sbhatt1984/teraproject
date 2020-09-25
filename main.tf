@@ -1,32 +1,32 @@
 provider "aws" {
-      region = "eu-west-1"
-      
+  region = var.region
+
 }
 
 
-resource "aws_instance" "teraec2-2" {
-ami = "ami-0a7c31280fbd23a86"
-instance_type = "t2.micro"
-tags = {
-    Name = "teraec2-2"
-}
-}
-
-
-resource "aws_vpc" "teravpc-2" {
-  cidr_block       = "10.1.0.0/16"
-  instance_tenancy = "default"
-
+resource "aws_instance" "teraec2-3" {
+  ami           = "ami-0a7c31280fbd23a86"
+  instance_type = "t2.micro"
   tags = {
-    Name = "teravpc-2"
+    Name = "teraec2-3"
   }
 }
 
-resource "aws_subnet" "terasubnet-2" {
-  vpc_id     = aws_vpc.teravpc-2.id
-  cidr_block = "10.1.1.0/24"
+
+resource "aws_vpc" "teravpc-3" {
+  cidr_block       = var.vpc_cidr
+  instance_tenancy = "default"
 
   tags = {
-    Name = "terasubnet-2"
+    Name = "teravpc-3"
+  }
+}
+
+resource "aws_subnet" "terasubnet-3" {
+  vpc_id     = aws_vpc.teravpc-3.id
+  cidr_block = var.subnet_cidr
+
+  tags = {
+    Name = "terasubnet-3"
   }
 }
